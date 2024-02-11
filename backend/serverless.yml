@@ -20,12 +20,12 @@ functions:
       - Effect: Allow
         Action:
           - dynamodb:PutItem
-        Resource: !GetAtt certificationTable
+        Resource: !GetAtt certificationTable.Arn
 
     events:
       - http:
           method: POST
-          path: /certificateList
+          path: /createCertificate
           cors:
             origin: "*"
             headers: ${self.custom.allowedHeaders}
@@ -39,7 +39,7 @@ resources:
         BillingMode: "PAY_PER_REQUEST"
         AttributeDefinitions:
           - AttributeName: "certificationId"
-            AttributeType: "String"
+            AttributeType: "S"
         KeySchema:
           - AttributeName: "certificationId"
             KeyType: "HASH"
